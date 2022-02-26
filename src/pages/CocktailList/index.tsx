@@ -1,9 +1,7 @@
 import View from './view';
 
-const CocktailList = () => {
-  return (
-    <View />
-  )
-};
+const CocktailList = () => (
+  <View />
+);
 
 export default CocktailList;

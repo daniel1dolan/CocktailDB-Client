@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
-const View = () => {
-  return (
-    <div>Cocktail List!</div>
-  )
-}
+const View = () => (
+  <div>Cocktail List!</div>
+);
 
 export default View;
