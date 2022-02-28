@@ -77,16 +77,17 @@ const View = ({ cocktails, loading, error }: Props): JSX.Element => {
         <>
           <div className="row justify-content-center mt-2">
             <h2 className="column">
-              Please enter a cocktail name to search for.
+              No Cocktails found! Please try again
             </h2>
           </div>
           <div className="row justify-content-center mt-2">
             <div className="column">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Cocktail Name"
-              />
+              <Link
+                className="btn btn-primary"
+                to="/"
+              >
+                Search Again
+              </Link>
             </div>
           </div>
         </>
