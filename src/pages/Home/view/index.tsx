@@ -213,6 +213,13 @@ const View = ({
             >
               Search
             </button>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={handleClear}
+            >
+              Clear
+            </button>
           </div>
         </div>
       </>

@@ -12,7 +12,21 @@ import View from './view';
 
 // Considerations for further features:
 // 1. Enable filtering and searching at the same time.
-// May require some complex logic or creating a server to handle this as endpoints allow only one.
+// Ex. - Filter endpoint does not allow search.
+// Ex. - Search endpoint does not allow filtering.
+// 2. Allow saving query parameters in the url when coming back from search.
+// Then restore state from query parameters.
+// 3. Add pagination. API does not support pagination.
+// 4. Add sorting. API does not support sorting.
+
+// -- May require some complex client logic or creating a server to handle this --
+// -- as endpoints allow only some functionality. --
+
+const defaultAdvancedFilters = {
+  ingredient: '',
+  category: '',
+  glass: '',
+};
 
 /** This component is the View Controller of the Home page.
  * The view controller is responsible for bringing together the view and data model.
@@ -22,7 +36,7 @@ const Home = () => {
   const history = useHistory();
   const [cocktailName, setCocktailName] = useState('');
   const [searchSelected, setSearchSelected] = useState<SearchSelected>('name');
-  const [advancedFilters, setAdvancedFilters] = useState<AdvancedFilters>({});
+  const [advancedFilters, setAdvancedFilters] = useState<AdvancedFilters>(defaultAdvancedFilters);
 
   const { ingredientOptions, categoryOptions, glassOptions } = useModelForHome();
 
@@ -43,7 +57,7 @@ const Home = () => {
   };
 
   const handleClear = () => {
-    setAdvancedFilters({});
+    setAdvancedFilters(defaultAdvancedFilters);
     setCocktailName('');
   };
 

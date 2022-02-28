@@ -7,6 +7,12 @@ import useModelForCocktailList from '../../models/useModelForCocktailList';
 
 import View from './view';
 
+// Future considerations:
+// 1. Add image optimization for large thumb images.
+// 2. Add pagination.
+// 3. Add sorting.
+// 4. Add individual cocktail view.
+
 const isValidSearchSelected = (selected: string | undefined): selected is SearchSelected => selected === 'name' || selected === 'advanced' || selected === 'random';
 
 const useQuery = () => new URLSearchParams(useLocation().search);

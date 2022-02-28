@@ -9,12 +9,6 @@ type Props = {
   error: string | null;
 }
 
-// Future considerations:
-// 1. Add image optimization for large thumb images.
-// 2. Add pagination.
-// 3. Add sorting.
-// 4. Add individual cocktail view.
-
 /** This component is used to display the view of the CocktailList. */
 const View = ({ cocktails, loading, error }: Props): JSX.Element => {
   if (error) {
