@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 
 import Home from './pages/Home';
 import CocktailList from './pages/CocktailList';
@@ -18,6 +19,7 @@ function App() {
           <Error />
         </Route>
       </Switch>
+      <Toaster />
     </Router>
   );
 }
