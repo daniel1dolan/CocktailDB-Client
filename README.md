@@ -1,3 +1,22 @@
+# Cocktail DB Project
+
+This project was built using react and typescript. 
+It can be found at https://alchol-db-react-client.netlify.app.
+
+It is styled using Bootstrap for a quick start.
+It uses axios for sending requests to the API.
+It has react-hot-toast for giving quick user feedback.
+
+# Future Considerations
+The cocktail-db API did not support filtering and searching at the same time.
+It could be a fun project to implement filtering either on the client or creating a wrapper API.
+
+The cocktail-db API did not support pagination and sorting. 
+The same wrapper API could be used for filter, search, pagination, and sorting. 
+
+Another page could be implemented which provides more in depth cocktail information. 
+This information could include recipes for creating the cocktail. 
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
