@@ -1,6 +1,8 @@
 import React from 'react';
 
-import type { SearchSelected } from '../index';
+import type {
+  SearchSelected, CategoryFilter, IngredientFilter, GlassFilter, AdvancedFilters,
+} from '../../../types';
 
 interface Props {
   searchSelected: SearchSelected;
@@ -10,6 +12,13 @@ interface Props {
   handleSearch: () => void;
   handleClear: () => void;
   handleRandom: () => void;
+  advancedFilters: AdvancedFilters;
+  filterOptions: {
+    ingredientOptions: Array<IngredientFilter>;
+    categoryOptions: Array<CategoryFilter>;
+    glassOptions: Array<GlassFilter>;
+  }
+  handleAdvancedFiltersChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 // TODO: Add jsx for advanced filter.
@@ -22,6 +31,9 @@ const View = ({
   handleSearch,
   handleClear,
   handleRandom,
+  advancedFilters,
+  filterOptions,
+  handleAdvancedFiltersChange,
 }: Props): JSX.Element => (
   <div className="justify-content-center container text-center">
     <div className="row justify-content-center mt-2">
@@ -90,8 +102,119 @@ const View = ({
         </div>
       </>
     ) : (
+      // Advanced filters will have autosuggest support for the filter options.
       <>
-        Advanced Filter
+        <div className="row justify-content-center mt-2">
+          <div className="column">
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={() => {
+                handleSearchSelectorChange('name');
+              }}
+            >
+              Back to Name Search
+            </button>
+          </div>
+        </div>
+
+        <div className="row justify-content-center mt-2">
+          <div className="column">
+            <h2 className="column">
+              Please enter the filters you would like to use.
+            </h2>
+          </div>
+        </div>
+
+        <div className="row justify-content-center mt-2">
+          <div className="column">
+            <h3 className="column">
+              Ingredient Filter
+            </h3>
+          </div>
+        </div>
+
+        <div className="row justify-content-center mt-2">
+          <div className="column">
+            <select
+              className="form-control"
+              value={advancedFilters.ingredient}
+              onChange={handleAdvancedFiltersChange}
+              name="ingredient"
+            >
+              <option value="">Select an Ingredient</option>
+              {filterOptions.ingredientOptions.map((option) => (
+                <option key={option.strIngredient1} value={option.strIngredient1}>
+                  {option.strIngredient1}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        <div className="row justify-content-center mt-2">
+          <div className="column">
+            <h3 className="column">
+              Category Filter
+            </h3>
+          </div>
+        </div>
+
+        <div className="row justify-content-center mt-2">
+          <div className="column">
+            <select
+              className="form-control"
+              value={advancedFilters.category}
+              onChange={handleAdvancedFiltersChange}
+              name="category"
+            >
+              <option value="">Select a Category</option>
+              {filterOptions.categoryOptions.map((option) => (
+                <option key={option.strCategory} value={option.strCategory}>
+                  {option.strCategory}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        <div className="row justify-content-center mt-2">
+          <div className="column">
+            <h3 className="column">
+              Glass Filter
+            </h3>
+          </div>
+        </div>
+
+        <div className="row justify-content-center mt-2">
+          <div className="column">
+            <select
+              className="form-control"
+              value={advancedFilters.glass}
+              onChange={handleAdvancedFiltersChange}
+              name="glass"
+            >
+              <option value="">Select a Glass</option>
+              {filterOptions.glassOptions.map((option) => (
+                <option key={option.strGlass} value={option.strGlass}>
+                  {option.strGlass}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        <div className="row justify-content-center mt-2">
+          <div className="column">
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={handleSearch}
+            >
+              Search
+            </button>
+          </div>
+        </div>
       </>
     )}
 

@@ -1,41 +1,64 @@
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import queryString from 'query-string';
+
+import type { SearchSelected, AdvancedFilters } from '../../types';
+
+import useModelForHome from '../../models/useModelForHome';
+
 import View from './view';
 
-// TODO: move this type to a types folder.
-export type SearchSelected = 'name' | 'advanced';
+// TODO: Make the search submit go to the list page with proper query parameters.
+
+// Considerations for further features:
+// 1. Enable filtering and searching at the same time.
+// May require some complex logic or creating a server to handle this as endpoints allow only one.
 
 /** This component is the View Controller of the Home page.
  * The view controller is responsible for bringing together the view and data model.
 */
 const Home = () => {
+  // Hooks
+  const history = useHistory();
   const [cocktailName, setCocktailName] = useState('');
   const [searchSelected, setSearchSelected] = useState<SearchSelected>('name');
-  // TODO: create object for storing selected filter values.
-  // This will be used to create the query string.
-  // Example shape = { ingredient: 'vodka', category: 'cocktail', glass: 'highball' }
+  const [advancedFilters, setAdvancedFilters] = useState<AdvancedFilters>({});
 
-  // TODO: create model for getting filter values and add state for setting filter values.
-  // Ex. - const { ingredientFilters, categoryFilters, glassFilter } = useModelForHome();
+  const { ingredientOptions, categoryOptions, glassOptions } = useModelForHome();
+
+  // Handlers
+  const handleSearch = () => {
+    const newRoute = queryString.stringify({
+      searchSelected,
+      cocktailName,
+      ingredient: advancedFilters.ingredient,
+      category: advancedFilters.category,
+      glass: advancedFilters.glass,
+    }, { skipEmptyString: true });
+    history.push(`/search/?${newRoute}`);
+  };
+
+  const handleRandom = () => {
+    history.push('/search?searchSelected=random');
+  };
+
+  const handleClear = () => {
+    setAdvancedFilters({});
+    setCocktailName('');
+  };
+
+  const handleSearchSelectorChange = (value: SearchSelected) => {
+    handleClear();
+    setSearchSelected(value);
+  };
 
   const handleCocktailNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCocktailName(event.target.value);
   };
 
-  const handleSearchSelectorChange = (value: SearchSelected) => {
-    setSearchSelected(value);
-  };
-
-  // TODO: possible refactor these to a useReducer.
-  const handleSearch = () => {
-    console.log(`Searching for ${cocktailName}`);
-  };
-
-  const handleClear = () => {
-    setCocktailName('');
-  };
-
-  const handleRandom = () => {
-    console.log('Random cocktail');
+  const handleAdvancedFiltersChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = event.target;
+    setAdvancedFilters({ ...advancedFilters, [name]: value });
   };
 
   return (
@@ -47,6 +70,13 @@ const Home = () => {
       handleSearch={handleSearch}
       handleClear={handleClear}
       handleRandom={handleRandom}
+      filterOptions={{
+        ingredientOptions,
+        categoryOptions,
+        glassOptions,
+      }}
+      advancedFilters={advancedFilters}
+      handleAdvancedFiltersChange={handleAdvancedFiltersChange}
     />
   );
 };
