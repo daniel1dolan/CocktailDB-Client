@@ -1,4 +1,4 @@
-import { useHistory, useLocation, Redirect } from 'react-router-dom';
+import { useLocation, Redirect } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 import type { SearchSelected } from '../../types';

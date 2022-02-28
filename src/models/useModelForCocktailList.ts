@@ -100,8 +100,6 @@ const useModelForCocktailList = ({
     }
   }, [searchSelected]);
 
-  console.log(cocktails);
-
   return {
     cocktails,
     loading,
